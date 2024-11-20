@@ -175,3 +175,73 @@ plt.show()
 
 # Display classification report
 print(classification_report(y_test, y_pred, target_names=class_names))
+
+
+
+
+# ROC Curve
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Generate predicted probabilities for the test set
+y_probs = log_reg.predict_proba(X_test)[:, 1]
+
+# Compute the ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, y_probs)
+auc = roc_auc_score(y_test, y_probs)
+
+# Plot the ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, label=f'ROC Curve (AUC = {auc:.2f})', color='teal', linewidth=2)
+plt.plot([0, 1], [0, 1], linestyle='--', color='red')  # Random guess reference
+plt.title('ROC Curve for Logistic Regression Model')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.show()
+
+
+
+
+# Summary Table of Metrics
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# Calculate metrics
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+
+# Display metrics in a table
+summary_table = pd.DataFrame({
+    'Metric': ['Accuracy', 'Precision', 'Recall', 'F1 Score', 'AUC'],
+    'Value': [accuracy, precision, recall, f1, auc]
+})
+print(summary_table)
+
+
+
+# Histogram 
+
+plt.figure(figsize=(8, 6))
+sns.histplot(data['Grad.Rate'], bins=20, kde=True, color='skyblue')
+plt.axvline(62.3, color='red', linestyle='--', label='Threshold = 62.3%')
+plt.title('Distribution of Graduation Rates')
+plt.xlabel('Graduation Rate')
+plt.ylabel('Frequency')
+plt.legend()
+plt.show()
+
+
+# Box Plot
+
+plt.figure(figsize=(6, 4))
+sns.boxplot(x=data['Grad.Rate'], color='lightblue')
+plt.axvline(62.3, color='red', linestyle='--', label='Threshold = 62.3%')
+plt.title('Box Plot of Graduation Rates')
+plt.xlabel('Graduation Rate')
+plt.legend()
+plt.show()
+
+
