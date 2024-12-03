@@ -179,7 +179,7 @@ print(classification_report(y_test, y_pred, target_names=class_names))
 
 
 
-# ROC Curve
+#4 ROC Curve
 from sklearn.metrics import roc_curve, roc_auc_score
 
 # Generate predicted probabilities for the test set
@@ -203,7 +203,7 @@ plt.show()
 
 
 
-# Summary Table of Metrics
+#5 Summary Table of Metrics
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
@@ -222,6 +222,13 @@ print(summary_table)
 
 
 
+#6 
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+data = pd.read_csv(r"C:\Users\HP\Downloads\College_Data (1) (1).csv")
 # Histogram 
 
 plt.figure(figsize=(8, 6))
@@ -243,5 +250,12 @@ plt.title('Box Plot of Graduation Rates')
 plt.xlabel('Graduation Rate')
 plt.legend()
 plt.show()
+
+# Calculate the median of Graduation Rates
+median_grad_rate = data['Grad.Rate'].median()
+
+# Display the median
+print(f"The median graduation rate is: {median_grad_rate}")
+
 
 
